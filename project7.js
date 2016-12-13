@@ -11,8 +11,23 @@ function transformPoint(event) {
 }
 
 // Step 2: drawSquare and drawCircle functions
-function drawSquare(x, y, size, color) {
-  // square drawing code here
+function drawsquare(x, y, size, color) {
+  var newsquare = document.createElementNS(namespace, "square")
+  newsquare.setAttribute("x", xpos)
+   newsquare.setAttribute("y", ypos)
+   newsquare.setAttribute("width", width)
+   newsquare.setAttribute("height", height)
+   newsquare.setAttribute("fill", color)
+   canvas.appendChild(newsquare)
+}
+
+function drawCircle(color,r,x,y) {
+  var newcircle = document.createElementNS(namespace, "circle")
+  newcircle.setAttribute("cx", x)
+  newcircle.setAttribute("cy", y)
+  newcircle.setAttribute("r", r)
+  newcircle.setAttribute("fill", color)
+  screen.appendChild(newcircle);
 }
 
 // Step 3: Event listeners
