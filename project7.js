@@ -1,5 +1,9 @@
 var screen = document.getElementById("screen")
 var namespace = "http://www.w3.org/2000/svg"
+var drawing = false;
+var rainbowColor = 0;
+var CustomColor = document.getElementById("CustomColor");
+var CustomSize = document.getElementById("CustomSize");
 
 // utility function
 function transformPoint(event) {
@@ -11,17 +15,17 @@ function transformPoint(event) {
 }
 
 // Step 2: drawSquare and drawCircle functions
-function drawsquare(x, y, size, color) {
-  var newsquare = document.createElementNS(namespace, "square")
-  newsquare.setAttribute("x", xpos)
-   newsquare.setAttribute("y", ypos)
-   newsquare.setAttribute("width", width)
-   newsquare.setAttribute("height", height)
+function drawSquare(x, y, size, color) {
+  var newsquare = document.createElementNS(namespace, "rect")
+  newsquare.setAttribute("x", x)
+   newsquare.setAttribute("y", y)
+   newsquare.setAttribute("width", size)
+   newsquare.setAttribute("height", size)
    newsquare.setAttribute("fill", color)
-   canvas.appendChild(newsquare)
+   screen.appendChild(newsquare)
 }
 
-function drawCircle(color,r,x,y) {
+function drawCircle(x,y,r,color) {
   var newcircle = document.createElementNS(namespace, "circle")
   newcircle.setAttribute("cx", x)
   newcircle.setAttribute("cy", y)
@@ -32,6 +36,31 @@ function drawCircle(color,r,x,y) {
 
 // Step 3: Event listeners
 document.addEventListener("mousedown", function(e) {
-  // what do you want to do when the user presses down
-  // on the mouse button?
+  var pt = transformPoint(e, screen)
+  drawing = true
+
+
+})
+
+document.addEventListener("mouseup", function(e) {
+  var pt = transformPoint(e, screen)
+   drawing = false
+})
+
+document.addEventListener("mousemove", function(e) {
+  var colorSelect = (document.getElementById("colorSelect").value)
+  var shapeSelect = (document.getElementById("shapeSelect").value)
+  var sizeSelect = (document.getElementById("sizeSelect").value)
+var pt =transformPoint(e)
+var xpos = pt.x
+var ypos = pt.y
+
+
+if (shapeSelect == "square" && drawing == true){
+  drawSquare(pt.x, pt.y, sizeSelect, colorSelect)
+}
+else if (shapeSelect == "circle" && drawing == true){
+  drawCircle(pt.x, pt.y, sizeSelect, colorSelect)
+}
+
 })
